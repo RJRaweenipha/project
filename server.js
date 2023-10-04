@@ -17,8 +17,8 @@ wss.on('connection', (ws) => {
 
     ws.on('close', () => {
         console.log('Client disconnected');
-      });
     });
+});
 
 app.use(express.static('D:/node'));
 
@@ -26,6 +26,6 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-server.listen(9090,()=>{
-    console.log('listening on port 9090')
+server.listen(9090, () => {
+    console.log('listening on port 9090');
 })

@@ -1,0 +1,78 @@
+// window.addEventListener('load', startRecognition); //เริ่มบันทึกเสียงเมื่อโหลดหน้าเว็บ
+//     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+//     let transcript;
+//     let socket = createWebSocket();
+
+
+//     function createWebSocket() {
+//       const socket = new WebSocket('ws://localhost:9090');
+//       socket.addEventListener('open', () => {
+//         console.log('Connected to server');
+//       });
+//       socket.addEventListener('close', () => {
+//         console.log('WebSocket closed');
+//         // เมื่อ WebSocket ปิดการเชื่อมต่อให้เรียกฟังก์ชันเริ่มการทำงานใหม่
+//         startRecognition();
+//       });
+//       socket.addEventListener('error', (error) => {
+//         console.error('WebSocket error:', error);
+//       });
+//       socket.addEventListener('message', (event) => {
+//         console.log('Received message from server:', event.data);
+//       });
+//       return socket;
+//     }
+
+
+//     recognition.onresult = async (event) => {
+//       transcript = event.results[0][0].transcript;
+//       console.log('You said: ' + transcript);
+
+//       if (transcript === "น้องแสนดี") {
+//         // ปิดการเชื่อมต่อ WebSocket เก่า (ถ้ามีการเชื่อมต่ออยู่)
+//         if (socket && socket.readyState === WebSocket.OPEN) {
+//           socket.close();
+//         }
+
+//         // สร้างการเชื่อมต่อ WebSocket ใหม่
+//         socket = createWebSocket();
+//       }
+
+//       if (transcript === "หยุดทำงาน") {
+//         // หยุดการเชื่อมต่อ WebSocket เมื่อพูดคำว่า "หยุดทำงาน"
+//         if (socket && socket.readyState === WebSocket.OPEN) {
+//           socket.close();
+//         }
+//       }
+
+//       if (socket.readyState === WebSocket.OPEN) {
+//         // ส่งข้อมูล transcript ไปยัง WebSocket server เมื่อ WebSocket เชื่อมต่อสำเร็จ
+//         socket.send(transcript);
+//       }
+//     };
+
+
+//     // socket.addEventListener('open', (event) => {
+//     //   console.log('Connected to server');
+
+//     //   // ส่งข้อมูล transcript ไปยัง WebSocket server เมื่อ WebSocket เชื่อมต่อสำเร็จ
+//     //   socket.send(transcript);
+//     // });
+
+
+//     let isListening = false;
+
+//     function startRecognition() {
+//       if (!isListening) {
+//         recognition.lang = 'th-TH';
+//         recognition.addEventListener('end', startRecognition); // Restart recognition after it ends
+//         recognition.start();
+//         isListening = true;
+//       }
+//     }
+
+//     recognition.onend = () => {
+//       isListening = false;
+//     };
+
